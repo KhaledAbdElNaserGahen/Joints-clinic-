@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Joints Clinic – Dr. Ahmed Abo Gabal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal:      #0b6c6c;
+    --teal-dark: #084f4f;
+    --teal-mid:  #0e8585;
+    --gold:      #c9a84c;
+    --gold-lt:   #e2c47a;
+    --cream:     #f5f0e8;
+    --cream-dk:  #ece4d3;
+    --ink:       #12201f;
+    --text:      #2c3e3d;
+    --muted:     #6b8a88;
+    --white:     #ffffff;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Tajawal', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    overflow-x: hidden;
+    direction: rtl;
+  }
+
+  /* ────────────────── NAVBAR ────────────────── */
+  .navbar {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    background: rgba(8, 79, 79, 0.97);
+    backdrop-filter: blur(12px);
+    padding: 14px 40px;
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid rgba(201,168,76,0.25);
+  }
+  .nav-logo { display: flex; flex-direction: column; line-height: 1.1; }
+  .nav-logo .en { font-family: 'Cormorant Garamond', serif; font-size: 18px; color: var(--gold); letter-spacing: 2px; font-weight: 600; }
+  .nav-logo .sub { font-size: 10px; color: rgba(255,255,255,0.55); letter-spacing: 1.5px; text-transform: uppercase; }
+  .nav-cta {
+    background: var(--gold);
+    color: var(--ink);
+    border: none; border-radius: 50px;
+    padding: 10px 24px; font-size: 14px; font-weight: 700;
+    cursor: pointer; text-decoration: none;
+    font-family: 'Tajawal', sans-serif;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(201,168,76,0.4); }
+
+  /* ────────────────── HERO ────────────────── */
+  .hero {
+    min-height: 100vh;
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(160deg, rgba(8,79,79,0.92) 0%, rgba(11,108,108,0.80) 40%, rgba(18,32,31,0.88) 100%),
+      url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=1600&q=80') center/cover no-repeat;
+  }
+  .hero-pattern {
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(circle at 20% 80%, rgba(201,168,76,0.08) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(14,133,133,0.15) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  /* geometric lines */
+  .geo-lines {
+    position: absolute; inset: 0; pointer-events: none; overflow: hidden;
+  }
+  .geo-lines::before {
+    content: '';
+    position: absolute; top: -10%; right: -5%;
+    width: 500px; height: 500px;
+    border: 1px solid rgba(201,168,76,0.12);
+    border-radius: 50%;
+    animation: rotateSlow 40s linear infinite;
+  }
+  .geo-lines::after {
+    content: '';
+    position: absolute; bottom: -15%; left: -8%;
+    width: 400px; height: 400px;
+    border: 1px solid rgba(201,168,76,0.08);
+    border-radius: 50%;
+    animation: rotateSlow 55s linear infinite reverse;
+  }
+  @keyframes rotateSlow { to { transform: rotate(360deg); } }
+
+  .hero-content {
+    position: relative; z-index: 2;
+    text-align: center; padding: 120px 24px 80px;
+    max-width: 860px;
+    animation: fadeUp .9s ease both;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .badge-cairo {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(201,168,76,0.15);
+    border: 1px solid rgba(201,168,76,0.4);
+    border-radius: 50px;
+    padding: 7px 18px; margin-bottom: 28px;
+    font-size: 13px; color: var(--gold-lt); letter-spacing: .5px;
+    animation: fadeUp .9s .15s ease both;
+  }
+  .badge-cairo svg { width: 16px; height: 16px; }
+
+  .hero-title {
+    font-size: clamp(36px, 6vw, 68px);
+    font-weight: 900; color: var(--white);
+    line-height: 1.2; margin-bottom: 10px;
+    animation: fadeUp .9s .2s ease both;
+  }
+  .hero-title .accent { color: var(--gold); }
+
+  .hero-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(18px, 3vw, 26px);
+    color: rgba(255,255,255,0.65);
+    font-style: italic; margin-bottom: 28px;
+    letter-spacing: .5px;
+    animation: fadeUp .9s .3s ease both;
+  }
+
+  .hero-desc {
+    font-size: clamp(15px, 2.5vw, 18px);
+    color: rgba(255,255,255,0.8);
+    max-width: 580px; margin: 0 auto 42px;
+    line-height: 1.8;
+    animation: fadeUp .9s .4s ease both;
+  }
+
+  .hero-btns {
+    display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
+    animation: fadeUp .9s .5s ease both;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--gold), #b5923e);
+    color: var(--ink); border: none; border-radius: 50px;
+    padding: 15px 34px; font-size: 16px; font-weight: 800;
+    cursor: pointer; text-decoration: none; font-family: 'Tajawal', sans-serif;
+    transition: transform .25s, box-shadow .25s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 14px 36px rgba(201,168,76,0.5); }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--white); border: 1.5px solid rgba(255,255,255,0.4);
+    border-radius: 50px; padding: 15px 34px;
+    font-size: 16px; font-weight: 700; cursor: pointer;
+    text-decoration: none; font-family: 'Tajawal', sans-serif;
+    transition: border-color .25s, background .25s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-ghost:hover { border-color: var(--gold); background: rgba(201,168,76,0.1); }
+
+  .hero-scroll {
+    position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    color: rgba(255,255,255,0.4); font-size: 12px; letter-spacing: 2px;
+    text-transform: uppercase;
+    animation: bounce 2.5s ease infinite;
+  }
+  @keyframes bounce {
+    0%,100% { transform: translateX(-50%) translateY(0); }
+    50%      { transform: translateX(-50%) translateY(8px); }
+  }
+  .hero-scroll .arrow { width: 20px; height: 20px; }
+
+  /* ────────────────── TEASER ────────────────── */
+  .teaser {
+    background: var(--ink);
+    padding: 90px 24px;
+    text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .teaser::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .teaser::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  .teaser-inner { max-width: 720px; margin: 0 auto; }
+  .teaser-quote {
+    font-size: clamp(26px, 5vw, 52px);
+    font-weight: 900; color: var(--white);
+    line-height: 1.35; margin-bottom: 20px;
+    position: relative;
+  }
+  .teaser-quote::before {
+    content: '"';
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 120px; color: rgba(201,168,76,0.1);
+    position: absolute; top: -30px; right: -10px;
+    line-height: 1; pointer-events: none;
+  }
+  .teaser-quote .gold { color: var(--gold); }
+
+  .teaser-coming {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--teal), var(--teal-mid));
+    color: var(--white); border-radius: 50px;
+    padding: 11px 30px; font-size: 17px; font-weight: 700;
+    margin-top: 30px; letter-spacing: .5px;
+    position: relative; overflow: hidden;
+  }
+  .teaser-coming::after {
+    content: '';
+    position: absolute; top: 0; left: -100%;
+    width: 60%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+    animation: shimmer 2.5s ease infinite;
+  }
+  @keyframes shimmer { to { left: 150%; } }
+
+  /* ────────────────── SERVICES ────────────────── */
+  .services { padding: 100px 24px; background: var(--cream); }
+  .section-tag {
+    text-align: center; margin-bottom: 14px;
+    font-size: 12px; font-weight: 700; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--teal-mid);
+  }
+  .section-title {
+    text-align: center; margin-bottom: 60px;
+    font-size: clamp(28px, 4.5vw, 46px);
+    font-weight: 900; color: var(--ink);
+  }
+  .section-title span { color: var(--teal); }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 26px; max-width: 1100px; margin: 0 auto;
+  }
+  .service-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 38px 30px;
+    position: relative; overflow: hidden;
+    border: 1px solid rgba(11,108,108,0.08);
+    transition: transform .3s, box-shadow .3s;
+  }
+  .service-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 50px rgba(11,108,108,0.12);
+  }
+  .service-card::before {
+    content: '';
+    position: absolute; top: 0; right: 0;
+    width: 80px; height: 80px;
+    border-radius: 0 20px 0 80px;
+    background: linear-gradient(135deg, rgba(11,108,108,0.06), rgba(201,168,76,0.06));
+    transition: transform .3s;
+  }
+  .service-card:hover::before { transform: scale(1.5); }
+
+  .service-icon {
+    width: 60px; height: 60px;
+    background: linear-gradient(135deg, var(--teal), var(--teal-mid));
+    border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 22px; font-size: 28px;
+  }
+  .service-card h3 {
+    font-size: 20px; font-weight: 800; color: var(--ink);
+    margin-bottom: 12px;
+  }
+  .service-card p {
+    font-size: 15px; color: var(--muted); line-height: 1.75;
+  }
+  .service-card .tag {
+    display: inline-block; margin-top: 18px;
+    background: rgba(11,108,108,0.07);
+    color: var(--teal); border-radius: 50px;
+    padding: 5px 14px; font-size: 13px; font-weight: 700;
+  }
+
+  /* ────────────────── TRUST STRIP ────────────────── */
+  .trust {
+    background: linear-gradient(135deg, var(--teal-dark), var(--teal));
+    padding: 70px 24px; text-align: center;
+  }
+  .trust-inner { max-width: 900px; margin: 0 auto; }
+  .trust h2 {
+    font-size: clamp(22px, 4vw, 38px);
+    font-weight: 900; color: var(--white); margin-bottom: 40px;
+  }
+  .trust-badges {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 24px;
+  }
+  .trust-badge {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 16px; padding: 22px 28px;
+    display: flex; align-items: center; gap: 14px;
+    min-width: 200px;
+    transition: background .25s;
+  }
+  .trust-badge:hover { background: rgba(255,255,255,0.14); }
+  .trust-badge .icon { font-size: 30px; }
+  .trust-badge .info { text-align: right; }
+  .trust-badge .info strong { display: block; color: var(--gold); font-size: 17px; font-weight: 800; }
+  .trust-badge .info span { color: rgba(255,255,255,0.65); font-size: 13px; }
+
+  /* ────────────────── TESTIMONIAL ────────────────── */
+  .testimonials { padding: 90px 24px; background: var(--cream-dk); }
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 22px; max-width: 1000px; margin: 0 auto;
+  }
+  .testi-card {
+    background: var(--white); border-radius: 18px;
+    padding: 30px 26px;
+    border: 1px solid rgba(11,108,108,0.07);
+  }
+  .testi-stars { color: var(--gold); font-size: 18px; margin-bottom: 14px; }
+  .testi-text { font-size: 15px; color: var(--text); line-height: 1.8; margin-bottom: 20px; }
+  .testi-author { display: flex; align-items: center; gap: 12px; }
+  .testi-avatar {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--teal), var(--teal-mid));
+    display: flex; align-items: center; justify-content: center;
+    color: var(--white); font-size: 18px; font-weight: 700;
+  }
+  .testi-name strong { display: block; font-size: 15px; color: var(--ink); font-weight: 800; }
+  .testi-name span { font-size: 13px; color: var(--muted); }
+
+  /* ────────────────── LOCATION ────────────────── */
+  .location-section { padding: 90px 24px; background: var(--cream); }
+  .location-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 40px; max-width: 1000px; margin: 0 auto;
+    align-items: center;
+  }
+  @media(max-width:720px) { .location-grid { grid-template-columns: 1fr; } }
+  .location-info h2 { font-size: 32px; font-weight: 900; color: var(--ink); margin-bottom: 24px; }
+  .location-detail {
+    display: flex; align-items: flex-start; gap: 14px;
+    margin-bottom: 22px;
+  }
+  .loc-icon {
+    width: 44px; height: 44px; min-width: 44px;
+    background: linear-gradient(135deg, var(--teal), var(--teal-mid));
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+  }
+  .loc-text strong { display: block; font-size: 16px; font-weight: 800; color: var(--ink); margin-bottom: 2px; }
+  .loc-text span { font-size: 15px; color: var(--muted); line-height: 1.6; }
+
+  .map-placeholder {
+    border-radius: 20px; overflow: hidden;
+    border: 3px solid rgba(11,108,108,0.15);
+    position: relative;
+    background: #e5e0d4;
+    min-height: 320px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+  }
+  .map-placeholder iframe {
+    width: 100%; height: 320px; border: none; display: block;
+  }
+  .map-label {
+    position: absolute; bottom: 12px; right: 12px;
+    background: var(--teal-dark); color: var(--white);
+    border-radius: 50px; padding: 6px 14px; font-size: 12px; font-weight: 700;
+  }
+
+  /* ────────────────── CTA BAND ────────────────── */
+  .cta-band {
+    background: var(--ink);
+    padding: 80px 24px; text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .cta-band::before {
+    content: '';
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(11,108,108,0.2) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .cta-band h2 { font-size: clamp(26px, 5vw, 48px); font-weight: 900; color: var(--white); margin-bottom: 16px; }
+  .cta-band p { font-size: 17px; color: rgba(255,255,255,0.65); margin-bottom: 40px; max-width: 520px; margin-left: auto; margin-right: auto; }
+  .cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+  .wa-btn {
+    background: #25D366; color: var(--white);
+    border: none; border-radius: 50px;
+    padding: 15px 34px; font-size: 16px; font-weight: 800;
+    cursor: pointer; text-decoration: none; font-family: 'Tajawal', sans-serif;
+    display: inline-flex; align-items: center; gap: 10px;
+    transition: transform .25s, box-shadow .25s;
+  }
+  .wa-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(37,211,102,0.4); }
+
+  .call-btn {
+    background: transparent; color: var(--gold);
+    border: 2px solid var(--gold); border-radius: 50px;
+    padding: 15px 34px; font-size: 16px; font-weight: 800;
+    cursor: pointer; text-decoration: none; font-family: 'Tajawal', sans-serif;
+    display: inline-flex; align-items: center; gap: 10px;
+    transition: transform .25s, background .25s;
+  }
+  .call-btn:hover { background: rgba(201,168,76,0.1); transform: translateY(-3px); }
+
+  /* ────────────────── FOOTER ────────────────── */
+  footer {
+    background: #080f0f;
+    padding: 50px 24px 30px;
+    text-align: center;
+    border-top: 1px solid rgba(201,168,76,0.15);
+  }
+  .footer-logo .en { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: var(--gold); letter-spacing: 2px; font-weight: 600; }
+  .footer-logo .sub { font-size: 11px; color: rgba(255,255,255,0.35); letter-spacing: 2px; margin-top: 4px; }
+  .footer-divider { width: 60px; height: 2px; background: var(--gold); margin: 20px auto; border-radius: 2px; }
+  .footer-phone { font-size: 20px; font-weight: 900; color: var(--white); margin-bottom: 8px; direction: ltr; display: inline-block; }
+  .footer-copy { font-size: 13px; color: rgba(255,255,255,0.3); margin-top: 24px; }
+
+  /* ────────────────── SCROLL REVEAL ────────────────── */
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ────────────────── FLOATING WA ────────────────── */
+  .float-wa {
+    position: fixed; bottom: 28px; left: 28px;
+    width: 58px; height: 58px;
+    background: #25D366; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 6px 24px rgba(37,211,102,0.45);
+    z-index: 200; cursor: pointer; text-decoration: none;
+    transition: transform .3s;
+  }
+  .float-wa:hover { transform: scale(1.12); }
+  .float-wa svg { width: 30px; height: 30px; fill: white; }
+
+  /* ────────────────── RESPONSIVE ────────────────── */
+  @media(max-width:600px) {
+    .navbar { padding: 12px 20px; }
+    .hero-btns { flex-direction: column; align-items: center; }
+    .hero-btns a { width: 100%; text-align: center; justify-content: center; }
+    .cta-buttons { flex-direction: column; align-items: center; }
+    .cta-buttons a { width: 100%; text-align: center; justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="nav-logo">
+    <span class="en">JOINTS CLINIC</span>
+    <span class="sub">Physiotherapy & Rehabilitation</span>
+  </div>
+  <a href="tel:01003384453" class="nav-cta">📞 احجز الآن</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-pattern"></div>
+  <div class="geo-lines"></div>
+  <div class="hero-content">
+    <div class="badge-cairo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+      متخصص من جامعة القاهرة – خبرة معتمدة
+    </div>
+    <h1 class="hero-title">
+      <span class="accent">Joints</span> Clinic<br>
+      <span style="font-size:0.65em; font-weight:700; color:rgba(255,255,255,0.85);">Dr. Ahmed Abo Gabal</span>
+    </h1>
+    <p class="hero-sub">Physiotherapy & Rehabilitation</p>
+    <p class="hero-desc">
+      أفضل علاج طبيعي للعظام والعمود الفقري والإصابات الرياضية
+      — بأيدي متخصصة وبروتوكولات علاجية حديثة 😍
+    </p>
+    <div class="hero-btns">
+      <a href="https://wa.me/201003384453" target="_blank" class="btn-primary">
+        💬 واتساب مباشر
+      </a>
+      <a href="tel:01003384453" class="btn-ghost">
+        📞 01003384453
+      </a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>اكتشف</span>
+    <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+  </div>
+</section>
+
+<!-- TEASER -->
+<section class="teaser">
+  <div class="teaser-inner">
+    <p class="teaser-quote reveal">
+      "تجربة جديدة...<br>
+      <span class="gold">كل لحظة فيها محسوبة بعناية</span>"
+    </p>
+    <p style="color:rgba(255,255,255,0.5); font-size:16px; margin-top:16px; reveal">
+      نستقبلكم بأعلى معايير الرعاية الطبية المتخصصة في علاج العظام والإصابات الرياضية.
+    </p>
+    <div class="teaser-coming reveal">✨ ترقبوا المزيد قريباً</div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <p class="section-tag reveal">خدماتنا</p>
+  <h2 class="section-title reveal">ماذا نقدم لك؟ 😍</h2>
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="service-icon">🦴</div>
+      <h3>علاج العظام والمفاصل</h3>
+      <p>بروتوكولات علاجية متقدمة لمشاكل العظام والمفاصل الحادة والمزمنة بأحدث الأجهزة والتقنيات الطبية.</p>
+      <span class="tag">علاج متخصص</span>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">🏃</div>
+      <h3>إصابات الرياضيين</h3>
+      <p>تأهيل متكامل للإصابات الرياضية وإعادة اللاعبين إلى الملاعب بأسرع وقت ممكن وأعلى مستوى أداء.</p>
+      <span class="tag">تأهيل رياضي</span>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">🧘</div>
+      <h3>علاج العمود الفقري</h3>
+      <p>جلسات علاجية متخصصة لآلام الظهر والرقبة والانزلاق الغضروفي مع خطة تعافٍ مخصصة لكل مريض.</p>
+      <span class="tag">عمود فقري</span>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<section class="trust">
+  <div class="trust-inner">
+    <h2 class="reveal">لماذا Joints Clinic؟ 😍</h2>
+    <div class="trust-badges">
+      <div class="trust-badge reveal">
+        <span class="icon">🎓</span>
+        <div class="info">
+          <strong>جامعة القاهرة</strong>
+          <span>تخصص معتمد دولياً</span>
+        </div>
+      </div>
+      <div class="trust-badge reveal">
+        <span class="icon">⚡</span>
+        <div class="info">
+          <strong>أحدث التقنيات</strong>
+          <span>أجهزة طبية متطورة</span>
+        </div>
+      </div>
+      <div class="trust-badge reveal">
+        <span class="icon">🏆</span>
+        <div class="info">
+          <strong>نتائج مضمونة</strong>
+          <span>بروتوكولات علمية مثبتة</span>
+        </div>
+      </div>
+      <div class="trust-badge reveal">
+        <span class="icon">❤️</span>
+        <div class="info">
+          <strong>رعاية شاملة</strong>
+          <span>متابعة ما بعد العلاج</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <p class="section-tag reveal">آراء مرضانا</p>
+  <h2 class="section-title reveal">قالوا عن <span>Joints Clinic</span></h2>
+  <div class="testimonials-grid">
+    <div class="testi-card reveal">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"عانيت من آلام الظهر لسنوات وبعد جلسات مع د. أحمد أبو جبل اتحسنت بشكل ملحوظ جداً. دكتور محترف جداً وعنده خبرة عالية." 😍</p>
+      <div class="testi-author">
+        <div class="testi-avatar">م</div>
+        <div class="testi-name">
+          <strong>محمد السيد</strong>
+          <span>علاج عمود فقري</span>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card reveal">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"بعد إصابتي الرياضية رجعت العب تاني وأنا بأحسن من الأول. شكراً للدكتور وفريق العمل الرائع في العيادة." 😍</p>
+      <div class="testi-author">
+        <div class="testi-avatar">ك</div>
+        <div class="testi-name">
+          <strong>كريم عبدالله</strong>
+          <span>تأهيل رياضي</span>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card reveal">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"أسلوب علاجي متميز وشعرت بفرق من أول جلسة. المكان محترم جداً والدكتور بيشرحلك كل حاجة بالتفصيل." 😍</p>
+      <div class="testi-author">
+        <div class="testi-avatar">ن</div>
+        <div class="testi-name">
+          <strong>نور أحمد</strong>
+          <span>علاج مفاصل</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOCATION -->
+<section class="location-section" id="location">
+  <p class="section-tag reveal">موقعنا</p>
+  <h2 class="section-title reveal">تعال إلينا</h2>
+  <div class="location-grid">
+    <div class="location-info reveal">
+      <h2>Joints Clinic</h2>
+      <div class="location-detail">
+        <div class="loc-icon">📍</div>
+        <div class="loc-text">
+          <strong>العنوان</strong>
+          <span>كوبري البطل – منيا القمح<br>محافظة الشرقية</span>
+        </div>
+      </div>
+      <div class="location-detail">
+        <div class="loc-icon">📞</div>
+        <div class="loc-text">
+          <strong>التليفون والواتساب</strong>
+          <span dir="ltr" style="display:block">01003384453</span>
+        </div>
+      </div>
+      <div class="location-detail">
+        <div class="loc-icon">🕐</div>
+        <div class="loc-text">
+          <strong>مواعيد العمل</strong>
+          <span>يومياً – للحجز والاستعلام اتصل بنا</span>
+        </div>
+      </div>
+      <a href="https://wa.me/201003384453" target="_blank" class="btn-primary" style="margin-top:10px; display:inline-flex; text-decoration:none;">
+        💬 تواصل معنا على واتساب
+      </a>
+    </div>
+    <div class="map-placeholder reveal">
+      <iframe
+        src="https://www.google.com/maps?q=كوبري+البطل+منيا+القمح+الشرقية&output=embed"
+        allowfullscreen loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+      <div class="map-label">📍 كوبري البطل – منيا القمح</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<section class="cta-band">
+  <h2 class="reveal">احجز استشارتك الآن 😍</h2>
+  <p class="reveal">لا تأجل صحتك — تواصل مع فريقنا اليوم وابدأ رحلة تعافيك الحقيقية</p>
+  <div class="cta-buttons">
+    <a href="https://wa.me/201003384453" target="_blank" class="wa-btn reveal">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      واتساب – 01003384453
+    </a>
+    <a href="tel:01003384453" class="call-btn reveal">
+      📞 اتصل بنا الآن
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <div class="en">JOINTS CLINIC</div>
+    <div class="sub">PHYSIOTHERAPY & REHABILITATION – DR. AHMED ABO GABAL</div>
+  </div>
+  <div class="footer-divider"></div>
+  <a href="tel:01003384453" class="footer-phone" style="text-decoration:none; color:white;">📞 01003384453</a>
+  <p style="color:rgba(255,255,255,0.4); font-size:14px; margin-top:8px;">كوبري البطل – منيا القمح</p>
+  <p class="footer-copy">© 2025 Joints Clinic – Dr. Ahmed Abo Gabal. جميع الحقوق محفوظة.</p>
+</footer>
+
+<!-- FLOATING WHATSAPP -->
+<a href="https://wa.me/201003384453" target="_blank" class="float-wa" title="واتساب">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(r => observer.observe(r));
+</script>
+</body>
+</html>
